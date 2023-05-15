@@ -7,6 +7,9 @@ https://www.youtube.com/playlist?list=PLOLrQ9Pn6cawinBJbH5d9IfloO9RRPMiq
 1- what is venv ?
 isolated envriment just like box or container for libs, frameworks to avoid dependancies confilicts
 عشان كل بروجت يكون له الانفرومينت الخاصة به من غير ما يتأثر ب بروجت تانى
+
 ========================================================================
 
-2-
+2- pip is package manager to manage python libs, add, show uninstall, ..
+
+========================================================================
