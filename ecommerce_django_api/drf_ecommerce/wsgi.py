@@ -10,7 +10,13 @@ https://docs.djangoproject.com/en/4.2/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
+from .settings.base import DEBUG
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "drf_ecommerce.settings")
+if DEBUG:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "drf_ecommerce.settings.dev")
+else:
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "drf_ecommerce.settings.prod")
+
+# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "drf_ecommerce.settings.dev")
 
 application = get_wsgi_application()
