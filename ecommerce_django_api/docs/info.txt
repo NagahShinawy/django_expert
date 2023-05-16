@@ -25,3 +25,10 @@ You can assign the generated key to the SECRET_KEY variable in your Django setti
 
 It's important to note that when deploying a Django application to a production environment, it's advisable to store the secret key securely and configure it through environment variables or a secure key management system rather than hardcoding it in the settings file.
 This helps maintain good security practices and allows for easier key rotation if necessary.
+
+========================================================================
+4- requriremnts
+
+export : pip freeze > requirements.txt
+install: pip install -r requirements.txt
+
