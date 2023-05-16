@@ -13,3 +13,15 @@ isolated envriment just like box or container for libs, frameworks to avoid depe
 2- pip is package manager to manage python libs, add, show uninstall, ..
 
 ========================================================================
+3- SECRET KEY
+3-  the secret key is a unique and confidential string used for cryptographic signing and securing various aspects of a Django application.
+It is an important security measure to protect sensitive information and prevent unauthorized access.
+
+The secret key is typically defined in the settings.py file of a Django project.
+It is recommended to keep the secret key confidential and not share it publicly or include it in version control repositories.
+
+To generate a secret key, Django provides a built-in django.core.management.utils.get_random_secret_key() function that can be used.
+You can assign the generated key to the SECRET_KEY variable in your Django settings file.
+
+It's important to note that when deploying a Django application to a production environment, it's advisable to store the secret key securely and configure it through environment variables or a secure key management system rather than hardcoding it in the settings file.
+This helps maintain good security practices and allows for easier key rotation if necessary.
