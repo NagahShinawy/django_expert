@@ -12,8 +12,6 @@ secret_key = command_prefix + [
 ]
 
 
-secret_key = subprocess.run(
-    secret_key, capture_output=True, text=True
-).stdout.strip()
+secret_key = subprocess.run(secret_key, capture_output=True, text=True).stdout.strip()
 
 print(secret_key)

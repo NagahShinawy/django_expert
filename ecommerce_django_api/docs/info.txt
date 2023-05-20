@@ -32,3 +32,71 @@ This helps maintain good security practices and allows for easier key rotation i
 export : pip freeze > requirements.txt
 install: pip install -r requirements.txt
 
+========================================================================
+
+5- pytest.ini
+
+is a config file which support key-value pairs
+
+The pytest.ini file is a configuration file used by the pytest testing framework in Python.
+It allows you to customize various aspects of how pytest runs your tests.
+When pytest runs, it automatically looks for a pytest.ini file in the current directory or any parent directory.
+
+The pytest.ini file is written in plain text and typically contains various sections and options that you can specify to configure pytest's behavior.
+Some common use cases for the pytest.ini file include:
+
+Specifying test file patterns: You can use the pytest section in the pytest.ini file to define the patterns for discovering test files. For example, you can set the python_files option to specify the file pattern for Python test files.
+
+Controlling test discovery: The pytest section in the pytest.ini file allows you to configure various aspects of test discovery, such as ignoring certain directories or files, specifying test prefixes, or defining custom markers.
+
+Customizing test execution: You can use the pytest section to set options related to test execution, such as verbosity level, output formatting, test timeout, or enabling code coverage.
+
+Defining fixtures: Fixtures are a powerful feature in pytest that allow you to set up and tear down resources for your tests. The pytest.ini file can define fixture-specific settings using the pytest.fixture section.
+
+These are just a few examples of what you can do with a pytest.ini file. The exact options and syntax depend on the version of pytest you're using. It's recommended to refer to the pytest documentation for a comprehensive list of available options and their usage.
+
+By providing a py
+
+test.ini file, you can ensure consistent test configurations across your project and avoid having to specify command-line options every time you run pytest.
+User
+
+[pytest]
+python_files = test_*.py
+python_classes = Test*
+python_functions = test_*
+
+addopts = --verbose --cov=my_project --cov-report=html
+
+markers =
+    slow: marks tests as slow (deselect with '-m "not slow"')
+    integration: marks tests as integration tests
+    api: marks tests as API tests
+
+[pytest.fixture]
+usefixtures = db_setup
+
+
+
+====================================================================================
+6- what is [pytest] ?
+
+In the pytest.ini file, the [pytest] section is a configuration section that is specific to the pytest testing framework.
+It is used to define global settings and options that affect the behavior of pytest when running tests.
+
+When pytest reads the pytest.ini file, it looks for sections enclosed in square brackets ([]). The [pytest] section is a special section that pytest recognizes and uses to read its configuration options.
+
+Any options specified within the [pytest] section apply to the entire pytest session and can be overridden by more specific sections or command-line arguments.
+
+[pytest]
+addopts = --verbose
+
+The [pytest] section is specifying the addopts option, which is used to pass additional command-line options to pytest.
+In this case, it sets the verbosity level to verbose (--verbose). This means that whenever you run pytest, it will automatically include the --verbose option without needing to specify it explicitly on the command line.
+
+Using the [pytest] section allows you to define default settings that apply to all test files and test runs in your project.
+However, you can still override these settings on a per-directory basis or for individual test files by specifying more specific sections or by using command-line options.
+
+Overall, the [pytest] section in the pytest.ini file is a way to define global configuration options for pytest, ensuring consistent behavior across your project's test suite.
+
+لازم الفايلز تبدا والفانكشنز والكلاسات تبدا ب test_
+عشان يقدر يتراك الفايلات ويعمل تيست

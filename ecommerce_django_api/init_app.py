@@ -16,19 +16,18 @@ subprocess.run(command_prefix + ["migrate"], cwd=project_directory)
 
 def create_username():
     username_length = 8
-    username = ''.join(random.choices(string.ascii_lowercase, k=username_length))
+    username = "".join(random.choices(string.ascii_lowercase, k=username_length))
     return username
 
 
 def create_password():
     password_length = 12
     password_characters = string.ascii_letters + string.digits + string.punctuation
-    password = ''.join(random.choices(password_characters, k=password_length))
+    password = "".join(random.choices(password_characters, k=password_length))
     return password
 
 
 def is_exist(username):
-
     check_superuser_cmd = command_prefix + [
         "shell",
         "-c",
@@ -63,5 +62,5 @@ def main():
     print("Django migration and superuser creation completed successfully.")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
