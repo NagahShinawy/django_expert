@@ -100,3 +100,8 @@ Overall, the [pytest] section in the pytest.ini file is a way to define global c
 
 لازم الفايلز تبدا والفانكشنز والكلاسات تبدا ب test_
 عشان يقدر يتراك الفايلات ويعمل تيست
+
+============================================================================================
+7- mptt ?
+https://django-mptt.readthedocs.io/en/latest/overview.html#what-is-django-mptt
+store tree data
