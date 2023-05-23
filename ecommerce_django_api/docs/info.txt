@@ -105,3 +105,8 @@ Overall, the [pytest] section in the pytest.ini file is a way to define global c
 7- mptt ?
 https://django-mptt.readthedocs.io/en/latest/overview.html#what-is-django-mptt
 store tree data
+
+============================================================================================
+
+8 - serializing :
+convert complex data [ qa ]  to format that client can undertand [ json]
