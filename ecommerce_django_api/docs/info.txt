@@ -110,3 +110,20 @@ store tree data
 
 8 - serializing :
 convert complex data [ qa ]  to format that client can undertand [ json]
+
+
+
+
+The reason reverse('category-list') works without explicitly setting a URL name is
+because when you use the router.register method to register your viewset with the router,
+it automatically generates the appropriate URL patterns and assigns default names to them.
+
+In this case, when you register your CategoryViewSet with router.register("categories", CategoryViewSet),
+the router generates the following URL patterns:
+
+GET /api/categories/ - Name: 'category-list'
+POST /api/categories/ - Name: 'category-list'
+GET /api/categories/{pk}/ - Name: 'category-detail'
+PUT /api/categories/{pk}/ - Name: 'category-detail'
+PATCH /api/categories/{pk}/ - Name: 'category-detail'
+DELETE /api/categories/{pk}/ - Name: 'category-detail'
