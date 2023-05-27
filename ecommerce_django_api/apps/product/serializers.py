@@ -43,7 +43,7 @@ class NestedObjectField(serializers.Field):
         if isinstance(data, dict):
             return data
         elif isinstance(data, str):
-            self.validate_uuid(data)
+            return self.validate_uuid(data)
         else:
             raise serializers.ValidationError("Invalid data format")
 
@@ -66,39 +66,22 @@ class ProductSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         brand_data = validated_data.pop('brand', None)
         category_data = validated_data.pop('category', None)
+        brand = self.create_nested_object(BrandSerializer, brand_data)
+        category = self.create_nested_object(CategorySerializer, category_data)
+        return Product.objects.create(brand=brand, category=category, **validated_data)
 
-        brand = None
-        category = None
-
-        if brand_data is not None:
-            if isinstance(brand_data, dict):
-                brand_serializer = BrandSerializer(data=brand_data)
-                brand_serializer.is_valid(raise_exception=True)
-                brand = brand_serializer.save()
-            elif isinstance(brand_data, uuid.UUID):
-                try:
-                    brand = Brand.objects.get(pk=brand_data)
-                except Brand.DoesNotExist:
-                    raise serializers.ValidationError("Invalid brand data")
-            else:
-                raise serializers.ValidationError("Invalid brand data")
-
-        if category_data is not None:
-            if isinstance(category_data, dict):
-                category_serializer = CategorySerializer(data=category_data)
-                category_serializer.is_valid(raise_exception=True)
-                category = category_serializer.save()
-            elif isinstance(category_data, uuid.UUID):
-                try:
-                    category = Category.objects.get(pk=category_data)
-                except Category.DoesNotExist:
-                    raise serializers.ValidationError("Invalid category data")
-            else:
-                raise serializers.ValidationError("Invalid category data")
-
-        product = Product.objects.create(brand=brand, category=category, **validated_data)
-
-        return product
+    def create_nested_object(self, serializer_class, data):
+        if isinstance(data, dict):
+            serializer = serializer_class(data=data)
+            serializer.is_valid(raise_exception=True)
+            return serializer.save()
+        elif isinstance(data, uuid.UUID):
+            try:
+                return serializer_class.Meta.model.objects.get(pk=data)
+            except serializer_class.Meta.model.DoesNotExist:
+                raise serializers.ValidationError(f"Invalid {serializer_class.Meta.model.__name__} data")
+        else:
+            raise serializers.ValidationError(f"Invalid {serializer_class.Meta.model.__name__} data")
 
 
 
