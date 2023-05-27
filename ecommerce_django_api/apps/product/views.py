@@ -1,41 +1,24 @@
-from rest_framework import generics, viewsets, permissions
-from rest_framework.pagination import PageNumberPagination
+from rest_framework import viewsets
 from .models import Category, Brand, Product
 from .serializers import CategorySerializer, ProductSerializer, BrandSerializer
-
-
-class CategoriesListAPIView(generics.ListAPIView):
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-
-class BrandListAPIView(generics.ListAPIView):
-    queryset = Brand.objects.all()
-    serializer_class = BrandSerializer
-
-
-class ProductListAPIView(generics.ListAPIView):
-    queryset = Product.objects.all()
-    serializer_class = ProductSerializer
-
-
-class CategoryPagination(PageNumberPagination):
-    page_size = 3
+from .pagination import CategoryPagination, BrandPagination, PageNumberPagination
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    pagination_class = CategoryPagination  # Custom pagination, override default Pagination comes from setting.py
+
+    # Custom pagination, override default Pagination comes from setting.py
+    pagination_class = CategoryPagination
 
 
-class BrandViewSet(viewsets.ViewSet):
+class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = BrandPagination
 
 
-class ProductViewSet(viewsets.ViewSet):
+class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    pagination_class = PageNumberPagination
