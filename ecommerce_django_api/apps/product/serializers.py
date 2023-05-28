@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Brand, Product, Category
-from .helpers import NestedObjCreationMixin, NestedObjectSerializer
+from .fields import NestedObjectField
 import uuid
 
 
@@ -32,32 +32,25 @@ class BrandSerializer(serializers.ModelSerializer):
 #         return Product.objects.create(**validated_data, brand=brand, category=category_data)
 
 
-class NestedObjectField(serializers.Field):
-    def validate_uuid(self, uuid_):
-        try:
-            return uuid.UUID(uuid_)
-        except ValueError:
-            raise serializers.ValidationError("Invalid UUID format")
-
-    def to_internal_value(self, data):
-        if isinstance(data, dict):
-            return data
-        elif isinstance(data, str):
-            return self.validate_uuid(data)
-        else:
-            raise serializers.ValidationError("Invalid data format")
+class BrandField(NestedObjectField):
 
     def to_representation(self, value):
-        if isinstance(value, Brand):
-            return BrandSerializer(value).data
-        if isinstance(value, Category):
-            return CategorySerializer(value).data
-        return None
+        if super().to_representation(value) is None:
+            return None
+        return BrandSerializer(value).data
+
+
+class CategoryField(NestedObjectField):
+
+    def to_representation(self, value):
+        if super().to_representation(value) is None:
+            return None
+        return CategorySerializer(value).data
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    brand = NestedObjectField()
-    category = NestedObjectField()
+    brand = BrandField()
+    category = CategoryField()
 
     class Meta:
         model = Product
